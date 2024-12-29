@@ -4,7 +4,7 @@ name: "Pull Request: Validate"
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["fork-custom"]
     types: ["opened", "synchronize", "reopened"]
 
 concurrency:
@@ -13,15 +13,15 @@ concurrency:
 
 jobs:
   simple-checks:
-    uses: onedr0p/containers/.github/workflows/simple-checks.yaml@main
+    uses: mdsina/containers/.github/workflows/simple-checks.yaml@fork-custom
 
   get-changed-images:
-    uses: onedr0p/containers/.github/workflows/get-changed-images.yaml@main
+    uses: mdsina/containers/.github/workflows/get-changed-images.yaml@fork-custom
 
   build-images:
     needs: ["simple-checks", "get-changed-images"]
     if: ${{ needs.get-changed-images.outputs.addedOrModified == 'true' }}
-    uses: onedr0p/containers/.github/workflows/build-images.yaml@main
+    uses: mdsina/containers/.github/workflows/build-images.yaml@fork-custom
     secrets: inherit
     with:
       appsToBuild: "${{ needs.get-changed-images.outputs.addedOrModifiedImages }}"

@@ -5,7 +5,7 @@ name: "Label Sync"
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["fork-custom"]
     paths:
       - .github/labels.yaml
       - .github/workflows/label-sync.yaml
@@ -18,17 +18,17 @@ jobs:
     name: Label Sync
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+#      - name: Generate Token
+#        uses: actions/create-github-app-token@v1
+#        id: app-token
+#        with:
+#          app-id: "${{ secrets.BOT_APP_ID }}"
+#          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
+#        with:
+#          token: "${{ steps.app-token.outputs.token }}"
 
       - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -44,6 +44,6 @@ jobs:
       - name: Sync Labels
         uses: EndBug/label-sync@v2
         with:
-          token: "${{ steps.app-token.outputs.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           config-file: .github/labels.yaml
           delete-other-labels: true

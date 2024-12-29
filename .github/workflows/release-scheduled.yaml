@@ -25,12 +25,12 @@ on:
 jobs:
   simple-checks:
     name: Simple Checks
-    uses: onedr0p/containers/.github/workflows/simple-checks.yaml@main
+    uses: mdsina/containers/.github/workflows/simple-checks.yaml@fork-custom
 
   build-images:
     name: Build Images
     needs: simple-checks
-    uses: onedr0p/containers/.github/workflows/build-images.yaml@main
+    uses: mdsina/containers/.github/workflows/build-images.yaml@fork-custom
     secrets: inherit
     permissions:
       contents: read
