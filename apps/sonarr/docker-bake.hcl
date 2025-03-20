@@ -2,11 +2,11 @@ target "docker-metadata-action" {}
 
 variable "VERSION" {
   // renovate: datasource=custom.sonarr depName=sonarr versioning=loose
-  default = "4.0.14.2938"
+  default = "5.0.0.5"
 }
 
 variable "SOURCE" {
-  default = "https://github.com/Sonarr/Sonarr"
+  default = "https://github.com/mdsina/Sonarr"
 }
 
 group "default" {
