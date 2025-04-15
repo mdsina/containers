@@ -2,7 +2,7 @@ target "docker-metadata-action" {}
 
 variable "VERSION" {
   // renovate: datasource=github-releases depName=fscorrupt/Posterizarr
-  default = "1.9.50"
+  default = "1.9.51"
 }
 
 group "default" {
