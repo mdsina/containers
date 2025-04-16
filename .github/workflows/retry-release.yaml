@@ -56,8 +56,8 @@ jobs:
 
       - name: Get Container Registry Version
         id: registry
-#        env:
-#          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if ! version=$(regctl image inspect ghcr.io/${{ github.repository_owner }}/${{ matrix.app }}:rolling \
               | jq --raw-output '.config.Labels["org.opencontainers.image.version"]' 2>/dev/null) || [[ -z "${version}" ]];
@@ -69,8 +69,8 @@ jobs:
 
       - if: ${{ steps.app-options.outputs.version != steps.registry.outputs.version }}
         name: Retry Release
-#        env:
-#          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh workflow run release.yaml \
               --repo ${{ github.repository }} \

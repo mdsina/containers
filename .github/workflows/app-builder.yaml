@@ -261,8 +261,8 @@ jobs:
       - name: Get Release Tag
         uses: ./.github/actions/release-tag
         id: release
-#        with:
-#          token: ${{ steps.app-token.outputs.token }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1.16.0
