@@ -276,7 +276,7 @@ jobs:
             **Name**: [${{ inputs.app }}](https://github.com/${{ github.repository }}/pkgs/container/${{ inputs.app }})
             **Source**: <${{ steps.app-options.outputs.source }}>
           tag: ${{ steps.release.outputs.tag }}
-#          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 #  notify:
 #    if: ${{ inputs.release && !cancelled() }}
