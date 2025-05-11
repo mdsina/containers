@@ -2,7 +2,7 @@
 
 ARG VERSION
 
-FROM docker.io/library/ubuntu:${VERSION}
+FROM ghcr.io/cloudnative-pg/postgresql:${VERSION}
 
 USER root
 
