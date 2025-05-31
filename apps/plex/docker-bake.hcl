@@ -1,8 +1,12 @@
 target "docker-metadata-action" {}
 
+variable "APP" {
+  default = "plex"
+}
+
 variable "VERSION" {
   // renovate: datasource=custom.plex depName=plex versioning=loose
-  default = "1.41.7.9799-5bce000f7"
+  default = "1.41.7.9823-59f304c16"
 }
 
 variable "SOURCE" {
@@ -26,6 +30,7 @@ target "image" {
 target "image-local" {
   inherits = ["image"]
   output = ["type=docker"]
+  tags = ["${APP}:${VERSION}"]
 }
 
 target "image-all" {
