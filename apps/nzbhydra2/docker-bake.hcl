@@ -1,8 +1,12 @@
 target "docker-metadata-action" {}
 
+variable "APP" {
+  default = "nzbhydra2"
+}
+
 variable "VERSION" {
   // renovate: datasource=github-releases depName=theotherp/nzbhydra2
-  default = "v7.13.0"
+  default = "v7.15.3"
 }
 
 variable "SOURCE" {
@@ -26,6 +30,7 @@ target "image" {
 target "image-local" {
   inherits = ["image"]
   output = ["type=docker"]
+  tags = ["${APP}:${VERSION}"]
 }
 
 target "image-all" {

@@ -1,12 +1,16 @@
 target "docker-metadata-action" {}
 
+variable "APP" {
+  default = "busybox"
+}
+
 variable "VERSION" {
-  // renovate: datasource=github-tags depName=conradludgate/atuin-server-sqlite/tags
-  default = "v18.4.0"
+  // renovate: datasource=docker depName=docker.io/library/busybox
+  default = "1.37.0"
 }
 
 variable "SOURCE" {
-  default = "https://github.com/conradludgate/atuin-server-sqlite"
+  default = "https://www.busybox.net"
 }
 
 group "default" {
@@ -26,6 +30,7 @@ target "image" {
 target "image-local" {
   inherits = ["image"]
   output = ["type=docker"]
+  tags = ["${APP}:${VERSION}"]
 }
 
 target "image-all" {

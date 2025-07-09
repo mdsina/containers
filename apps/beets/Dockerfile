@@ -8,7 +8,7 @@ ENV PRODUCTION=true
 ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm install && npm run-script build
 
-FROM docker.io/library/python:3.13-alpine3.21
+FROM docker.io/library/python:3.13-alpine3.22
 ARG VERSION
 
 WORKDIR /src
@@ -22,7 +22,8 @@ ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_NO_CACHE=true \
-    UV_SYSTEM_PYTHON=true
+    UV_SYSTEM_PYTHON=true \
+    UV_EXTRA_INDEX_URL="https://wheel-index.linuxserver.io/alpine-3.22/"
 
 ENV HOME=/config \
     BETANIN_HOST=0.0.0.0 \
@@ -65,7 +66,6 @@ RUN \
     pip install uv \
     && \
     uv pip install \
-        --find-links "https://wheel-index.linuxserver.io/alpine-3.21/" \
         https://github.com/beetbox/beets/releases/download/${VERSION}/beets-${VERSION#*v}-py3-none-any.whl \
         git+https://github.com/sentriz/betanin.git \
         beetcamp \
