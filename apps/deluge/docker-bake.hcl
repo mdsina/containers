@@ -2,7 +2,7 @@ target "docker-metadata-action" {}
 
 variable "VERSION" {
   // renovate: datasource=repology depName=alpine_edge/deluge
-  default = "2.2.0-r0"
+  default = "2.2.0-r1"
 }
 
 variable "SOURCE" {
