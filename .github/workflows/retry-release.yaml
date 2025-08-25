@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   apps:
@@ -42,12 +43,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Generate Token
-        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.1.1
-        id: app-token
-        with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+#      - name: Generate Token
+#        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.1.1
+#        id: app-token
+#        with:
+#          app-id: ${{ secrets.BOT_APP_ID }}
+#          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@d58896d6a1865668819e1d91763c7751a165e159 # v3.9.2
@@ -64,7 +65,7 @@ jobs:
       - name: Get Container Registry Version
         id: registry
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           if ! version=$(regctl image inspect ghcr.io/${{ github.repository_owner }}/${{ matrix.app }}:rolling \
               | jq --raw-output '.config.Labels["org.opencontainers.image.version"]' 2>/dev/null) || [[ -z "${version}" ]];
@@ -79,14 +80,14 @@ jobs:
         uses: juliangruber/find-pull-request-action@952b3bb1ddb2dcc0aa3479e98bb1c2d1a922f096 # v1.10.0
         id: find-pull-request
         with:
-          github-token: ${{ steps.app-token.outputs.token }}
+          github-token: ${{ github.token }}
           labels: app/${{ matrix.app }}
           state: open
 
       - if: ${{ steps.find-pull-request.outputs.number != '' }}
         name: Retry Release
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: | # zizmor: ignore[template-injection]
           gh workflow run release.yaml \
               --repo ${{ github.repository }} \
