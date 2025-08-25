@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   labeler:
@@ -16,18 +18,19 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
 
-      - name: Generate Token
-        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.1.1
-        id: app-token
-        with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+#      - name: Generate Token
+#        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.1.1
+#        id: app-token
+#        with:
+#          app-id: ${{ secrets.BOT_APP_ID }}
+#          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Setup Just
         uses: extractions/setup-crate@4993624604c307fbca528d28a3c8b60fa5ecc859 # v1.4.0
@@ -40,5 +43,5 @@ jobs:
       - name: Labeler
         uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
         with:
-          repo-token: ${{ steps.app-token.outputs.token }}
+          repo-token: ${{ github.token }}
           configuration-path: .github/labeler.yaml
