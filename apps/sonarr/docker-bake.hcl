@@ -6,11 +6,11 @@ variable "APP" {
 
 variable "VERSION" {
   // renovate: datasource=custom.sonarr-develop depName=sonarr versioning=loose
-  default = "4.0.15.2940"
+  default = "5.0.0.5"
 }
 
 variable "SOURCE" {
-  default = "https://github.com/Sonarr/Sonarr"
+  default = "https://github.com/mdsina/Sonarr"
 }
 
 group "default" {
