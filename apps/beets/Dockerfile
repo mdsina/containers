@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM docker.io/library/node:22-alpine AS betanin
+FROM docker.io/library/node:24-alpine AS betanin
 WORKDIR /src
 ADD https://github.com/sentriz/betanin.git .
 WORKDIR /src/betanin_client
