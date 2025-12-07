@@ -131,7 +131,7 @@ cosign verify-attestation --new-bundle-format --type slsaprovenance1 \
 This repository does not support multiple "channels" for the same application. For example:
 
 - **Prowlarr**, **Radarr**, **Lidarr**, and **Sonarr** only publish the **develop** branch, not the **master** (stable) branch.
-- **qBittorrent** is only published with **LibTorrent 2.x**.
+- **qBittorrent** is only published with **LibTorrent 2.x**. See [this issue](https://github.com/home-operations/containers/issues/848) for more information.
 
 This approach ensures consistency and focuses on streamlined builds.
 
@@ -141,9 +141,10 @@ We encourage the use of official upstream container images whenever possible. Ho
 
 - The upstream application is **actively maintained**.
 - **And** one of the following applies:
-  - No official upstream container exists.
-  - The official image does not support **multi-architecture builds**.
-  - The official image uses tools like **s6-overlay**, **gosu**, or other unconventional initialization mechanisms.
+  - no official image exists.
+  - the official image does not support **multi-architecture builds**.
+  - the official image uses tools like **s6-overlay**, **gosu**, or other unconventional initialization mechanisms.
+  - does not tag releases.
 
 ## Deprecations
 
