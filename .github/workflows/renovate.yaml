@@ -28,7 +28,7 @@ jobs:
         uses: codex-/return-dispatch@be07aaa981b76aca2b080c5e17604f59d85c06bf # v3.0.0
         id: dispatch
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.TOKEN }}
           owner: ${{ github.repository_owner }}
           repo: .github
           ref: main
@@ -39,13 +39,13 @@ jobs:
       - name: Await Renovate Completion
         uses: Codex-/await-remote-run@a56c556e6434d2d7ec9438dc656143b39532324e # v1.13.0
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.TOKEN }}
           owner: ${{ github.repository_owner }}
           repo: .github
           run_id: ${{ steps.dispatch.outputs.run_id }}
 
       - name: Renovate Output
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |-
           gh run view --repo ${{ github.repository_owner }}/.github --log ${{ steps.dispatch.outputs.run_id }}
