@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM docker.io/library/python:3.13-alpine3.22
+FROM docker.io/library/python:3.13-alpine3.23
 ARG VENDOR
 ARG VERSION
 
@@ -14,7 +14,7 @@ ENV \
     PYTHONUNBUFFERED=1 \
     UV_NO_CACHE=true \
     UV_SYSTEM_PYTHON=true \
-    UV_EXTRA_INDEX_URL="https://wheel-index.linuxserver.io/alpine-3.22/" \
+    UV_EXTRA_INDEX_URL="https://wheel-index.linuxserver.io/alpine-3.23/" \
     # https://community.octoprint.org/t/trouble-with-installing-netifaces-on-alpine-linux/61694
     # Maybe can be removed in v1.12
     CFLAGS="-Wno-int-conversion"
